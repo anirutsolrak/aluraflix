@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
-import {Card, CardMedia, CardContent, Typography, IconButton } from '@mui/material'; 
+import React, { useState, useContext } from 'react';
+import { Card, CardMedia, CardContent, Typography, Button, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditModal from '../EditModal'
+import EditModal from '../EditModal'; 
+import { Link } from 'react-router-dom'; 
+import { VideosContext } from '../context/VideosContext';
 
 const VideoCard = ({ video }) => {
   const [showModal, setShowModal] = useState(false);
+
+  const { updateVideo, deleteVideo } = useContext(VideosContext);
 
   const handleEdit = () => {
     setShowModal(true);
   };
 
   const handleDelete = () => {
-    // Lógica para excluir o vídeo (ex: remover do estado)
-    console.log('Excluir Vídeo:', video.title);
+    deleteVideo(video.id); // Use o ID para excluir o vídeo
   };
 
   return (
@@ -22,7 +25,7 @@ const VideoCard = ({ video }) => {
         component="img"
         alt={video.title}
         height="140"
-        image={`/videos/${video.image}`} // Caminho relativo à pasta 'public/videos'
+        image={`/videos/${video.image}`} 
         title={video.title}
       />
       <CardContent>
@@ -32,6 +35,11 @@ const VideoCard = ({ video }) => {
         <Typography variant="body2" color="textSecondary" component="p">
           {video.description}
         </Typography>
+        <Link to={video.videoLink} target="_blank" rel="noopener noreferrer">
+          <Button variant="contained" color="primary">
+            Assistir
+          </Button>
+        </Link>
       </CardContent>
       <div className="card-actions">
         <IconButton aria-label="edit" onClick={handleEdit}>
@@ -45,6 +53,7 @@ const VideoCard = ({ video }) => {
         <EditModal
           video={video}
           onClose={() => setShowModal(false)}
+          onUpdateVideo={updateVideo} 
         />
       )}
     </Card>

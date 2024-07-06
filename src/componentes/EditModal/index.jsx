@@ -1,22 +1,38 @@
-import React, { useState } from 'react';
-import { Dialog,DialogTitle, DialogContent, DialogActions, TextField, Button, Select, MenuItem }from '@mui/material'; 
+import React, { useState, useContext } from 'react';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import { VideosContext } from '../context/VideosContext';
 
-const EditModal = ({ video, onClose }) => {
+const EditModal = ({ video, onClose, onUpdateVideo }) => {
   const [title, setTitle] = useState(video.title);
   const [category, setCategory] = useState(video.category);
-  const [image, setImage] = useState(video.image); // Sem o prefixo '/'
+  const [image, setImage] = useState(video.image);
   const [videoLink, setVideoLink] = useState(video.videoLink);
   const [description, setDescription] = useState(video.description);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Lógica para salvar as alterações (ex: atualizar o vídeo no estado)
-    console.log('Vídeo atualizado:', { title, category, image, videoLink, description });
+    // Crie um novo objeto com os dados atualizados
+    const updatedVideo = {
+      id: video.id, // Mantenha o ID original
+      title,
+      category,
+      image,
+      videoLink,
+      description
+    };
+    // Chame a função onUpdateVideo para atualizar o estado no HomePage
+    onUpdateVideo(updatedVideo); 
     onClose();
   };
 
   const handleClear = () => {
-    // Lógica para limpar o formulário (opcional)
     setTitle('');
     setCategory('');
     setImage('');
@@ -45,7 +61,7 @@ const EditModal = ({ video, onClose }) => {
           type="text"
           fullWidth
           value={image}
-          onChange={(e) => setImage(e.target.value)} 
+          onChange={(e) => setImage(e.target.value)}
         />
         <TextField
           margin="dense"

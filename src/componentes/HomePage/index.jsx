@@ -1,20 +1,14 @@
-import React, { useState } from 'react';
+// src/components/HomePage.jsx
+import React from 'react';
+import { useContext } from 'react'; 
+import { VideosContext } from '../context/VideosContext'; 
 import Header from '../Header';
 import Banner from '../Banner';
 import VideoCard from '../VideoCard';
 import Footer from '../Footer';
 
 const HomePage = () => {
-  const [videos, setVideos] = useState([
-    {
-      title: 'O que faz uma desenvolvedora Front-End?',
-      description: 'Aprenda como construir interfaces web incríveis!',
-      image: 'video-frontend.jpg', 
-      videoLink: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 
-      category: 'frontend'
-    },
-    // Adicione mais vídeos aqui...
-  ]);
+  const { videos, updateVideo, deleteVideo } = useContext(VideosContext); 
 
   return (
     <div>
@@ -26,10 +20,53 @@ const HomePage = () => {
           {videos
             .filter((video) => video.category === 'frontend')
             .map((video) => (
-              <VideoCard key={video.title} video={video} /> 
+              <VideoCard 
+                key={video.id} 
+                video={video} 
+                onUpdateVideo={updateVideo} 
+                onDeleteVideo={deleteVideo} 
+              /> 
             ))}
         </div>
-        {/* Outras categorias (Backend, Inovação, Gestão) */}
+        <h2>Backend</h2>
+        <div className="video-cards">
+          {videos
+            .filter((video) => video.category === 'backend')
+            .map((video) => (
+              <VideoCard 
+                key={video.title} 
+                video={video} 
+                onUpdateVideo={updateVideo} 
+                onDeleteVideo={deleteVideo} 
+              /> 
+            ))}
+        </div>
+        <h2>Inovação</h2>
+        <div className="video-cards">
+          {videos
+            .filter((video) => video.category === 'inovacao')
+            .map((video) => (
+              <VideoCard 
+                key={video.title} 
+                video={video} 
+                onUpdateVideo={updateVideo} 
+                onDeleteVideo={deleteVideo} 
+              /> 
+            ))}
+        </div>
+        <h2>Gestão</h2>
+        <div className="video-cards">
+          {videos
+            .filter((video) => video.category === 'gestao')
+            .map((video) => (
+              <VideoCard 
+                key={video.title} 
+                video={video} 
+                onUpdateVideo={updateVideo} 
+                onDeleteVideo={deleteVideo} 
+              /> 
+            ))}
+        </div>
       </div>
       <Footer />
     </div>

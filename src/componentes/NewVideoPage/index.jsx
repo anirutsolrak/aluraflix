@@ -1,20 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { VideosContext } from '../context/VideosContext';
 import Header from '../Header';
 import Footer from '../Footer';
 import { Container, Typography, TextField, Button, Select, MenuItem } from '@mui/material'; 
 
 const NewVideoPage = () => {
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('frontend'); // Default categoria
-  const [image, setImage] = useState(''); // Sem o prefixo '/'
+  const [category, setCategory] = useState('frontend'); 
+  const [image, setImage] = useState(''); 
   const [videoLink, setVideoLink] = useState('');
   const [description, setDescription] = useState('');
 
+  const { videos, addVideo } = useContext(VideosContext); 
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Lógica para criar o novo vídeo (ex: adicionar ao estado)
-    console.log('Novo Vídeo:', { title, category, image, videoLink, description });
-    // Limpe os campos após o envio
+    // Crie um novo objeto de vídeo
+    const newVideo = {
+      title,
+      category,
+      image,
+      videoLink,
+      description
+    };
+    // Chama a função addVideo para adicionar o novo vídeo
+    addVideo(newVideo);
+    // Limpa os campos após o envio
     setTitle('');
     setCategory('frontend');
     setImage('');
