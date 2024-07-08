@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { VideosContext } from '../context/VideosContext';
+import React, { useState } from 'react';
+import useApiService from '../Api/useApiService'; 
 import Header from '../Header';
 import Footer from '../Footer';
 import { Container, Typography, TextField, Button, Select, MenuItem } from '@mui/material'; 
@@ -11,9 +11,9 @@ const NewVideoPage = () => {
   const [videoLink, setVideoLink] = useState('');
   const [description, setDescription] = useState('');
 
-  const { videos, addVideo } = useContext(VideosContext); 
+  const { createVideo } = useApiService();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Crie um novo objeto de vídeo
     const newVideo = {
@@ -23,8 +23,8 @@ const NewVideoPage = () => {
       videoLink,
       description
     };
-    // Chama a função addVideo para adicionar o novo vídeo
-    addVideo(newVideo);
+    // Chama a função createVideo para adicionar o novo vídeo
+    const createdVideo = await createVideo(newVideo);
     // Limpa os campos após o envio
     setTitle('');
     setCategory('frontend');

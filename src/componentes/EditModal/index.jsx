@@ -7,20 +7,22 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { VideosContext } from '../context/VideosContext';
+import useApiService from '../Api/useApiService'; 
 
-const EditModal = ({ video, onClose, onUpdateVideo }) => {
+const EditModal = ({ video, onClose }) => { 
+  const { updateVideo } = useApiService();
+
   const [title, setTitle] = useState(video.title);
   const [category, setCategory] = useState(video.category);
-  const [image, setImage] = useState(video.image);
+  const [image, setImage] = useState(video.image); 
   const [videoLink, setVideoLink] = useState(video.videoLink);
   const [description, setDescription] = useState(video.description);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Crie um novo objeto com os dados atualizados
     const updatedVideo = {
-      id: video.id, // Mantenha o ID original
+      id: video.id, 
       title,
       category,
       image,
@@ -28,7 +30,7 @@ const EditModal = ({ video, onClose, onUpdateVideo }) => {
       description
     };
     // Chame a função onUpdateVideo para atualizar o estado no HomePage
-    onUpdateVideo(updatedVideo); 
+    await updateVideo(updatedVideo); 
     onClose();
   };
 

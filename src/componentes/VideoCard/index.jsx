@@ -4,19 +4,19 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditModal from '../EditModal'; 
 import { Link } from 'react-router-dom'; 
-import { VideosContext } from '../context/VideosContext';
+import useApiService from '../Api/useApiService'; 
 
 const VideoCard = ({ video }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const { updateVideo, deleteVideo } = useContext(VideosContext);
+  const { updateVideo, deleteVideo } = useApiService();
 
   const handleEdit = () => {
     setShowModal(true);
   };
 
-  const handleDelete = () => {
-    deleteVideo(video.id); // Use o ID para excluir o vídeo
+  const handleDelete = async () => {
+    await deleteVideo(video.id);
   };
 
   return (
