@@ -16,7 +16,7 @@ const HomePage = () => {
     };
 
     fetchVideos();
-  }, []);
+  }, [videos]);
 
   return (
     <div>
