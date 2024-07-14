@@ -35,4 +35,22 @@ const deleteVideo = async (id) => {
   return response.json();
 };
 
-export { getVideos, createVideo, updateVideo, deleteVideo };
+const getVideo = async (id) => {
+  const response = await fetch(`${apiUrl}/videos/${id}`);
+  return response.json(); 
+};
+
+const getVideoThumbnail = async (videoId) => {
+  const apiKey = 'YOUR_YOUTUBE_API_KEY'; // Substitua pela sua chave da API
+  const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${apiKey}`;
+  const response = await fetch(url);
+  const data = await response.json();
+
+  if (data.items && data.items.length > 0) {
+    return data.items[0].snippet.thumbnails.default.url; 
+  } else {
+    return null;
+  }
+};
+
+export { getVideos, createVideo, updateVideo, deleteVideo, getVideo, getVideoThumbnail };

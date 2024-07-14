@@ -4,6 +4,34 @@ import Header from '../Header';
 import Banner from '../Banner';
 import VideoCard from '../VideoCard';
 import Footer from '../Footer';
+import styled from 'styled-components';
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px; 
+`;
+
+const StyledSection = styled.section`
+  margin-bottom: 20px; 
+  width: 100%;
+`;
+
+const StyledH2 = styled.h2`
+  font-weight: bold; 
+  color: ${(props) => props.theme.colors.primary}; // Cor vibrante principal
+  text-align: center;
+  margin-bottom: 10px;
+`;
+
+const StyledVideoCardsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+`;
 
 const HomePage = () => {
   const [videos, setVideos] = useState([]);
@@ -11,7 +39,7 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const fetchedVideos = await getVideos();
+      const fetchedVideos = await getVideos(); 
       setVideos(fetchedVideos);
     };
 
@@ -19,27 +47,41 @@ const HomePage = () => {
   }, [videos]);
 
   return (
-    <div>
+    <StyledContainer>
       <Header />
       <Banner />
-      <div className="categories">
-        <h2>Frontend</h2>
-        <div className="video-cards">
+      <StyledSection>
+        <StyledH2>Frontend</StyledH2>
+        <StyledVideoCardsContainer>
           {videos
             .filter((video) => video.category === 'frontend')
-            .map((video) => (
-              <VideoCard 
-                key={video.id} 
-                video={video} 
-                onUpdateVideo={updateVideo} 
-                onDeleteVideo={deleteVideo} 
-              /> 
+            .map ((video) =>
+              (<VideoCard 
+                  key={video.id} 
+                  video={video} 
+                  onUpdateVideo={updateVideo} 
+                  onDeleteVideo={deleteVideo} 
+                /> 
             ))}
-        </div>
-        {/* Outras categorias (Backend, Inovação, Gestão) */}
-      </div>
+        </StyledVideoCardsContainer>
+      </StyledSection>
+      <StyledSection>
+        <StyledH2>Wild Rift</StyledH2>
+        <StyledVideoCardsContainer>
+        {videos
+            .filter((video) => video.category === 'frontend')
+            .map ((video) =>
+              (<VideoCard 
+                  key={video.id} 
+                  video={video} 
+                  onUpdateVideo={updateVideo} 
+                  onDeleteVideo={deleteVideo} 
+                /> 
+            ))}
+        </StyledVideoCardsContainer>
+      </StyledSection>
       <Footer />
-    </div>
+    </StyledContainer>
   );
 };
 
