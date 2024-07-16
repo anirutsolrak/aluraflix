@@ -31,7 +31,7 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const EditModal = ({ video, onClose, onUpdateVideo, handleEdit }) => { 
+const EditModal = ({ video, onClose}) => { 
   const { updateVideo } = useApiService();
 
   const [title, setTitle] = useState(video.title);
@@ -62,10 +62,9 @@ const EditModal = ({ video, onClose, onUpdateVideo, handleEdit }) => {
       description
     };
     // Chame a função onUpdateVideo para atualizar o estado no HomePage
-    await onUpdateVideo(updatedVideo); 
+    await updateVideo(updatedVideo); 
     onClose();
   };
-
   const handleClear = () => {
     setTitle('');
     setCategory('');
@@ -127,9 +126,7 @@ const EditModal = ({ video, onClose, onUpdateVideo, handleEdit }) => {
           onChange={(e) => setCategory(e.target.value)}
         >
           <MenuItem value="frontend">Frontend</MenuItem>
-          <MenuItem value="backend">Backend</MenuItem>
-          <MenuItem value="inovacao">Inovação</MenuItem>
-          <MenuItem value="gestao">Gestão</MenuItem>
+          <MenuItem value="Wr">Wild Rift</MenuItem>
         </Select>
       </DialogContent>
       <DialogActions>
