@@ -276,7 +276,7 @@ const NewVideoPage = () => {
                 <Button onClick={handleClear} color="primary" disabled={formType !== 'upload'}>
                   Limpar
                 </Button>
-                <Button type="submit" color="primary" disabled={formType !== 'upload'} onClick={createVideo}>
+                <Button type="submit" color="primary" disabled={formType !== 'upload'} onClick={}>
                   Criar
                 </Button>
               </div>
