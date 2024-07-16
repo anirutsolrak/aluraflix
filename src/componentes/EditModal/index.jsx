@@ -31,7 +31,7 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const EditModal = ({ video, onClose, onUpdateVideo }) => { 
+const EditModal = ({ video, onClose, onUpdateVideo, handleEdit }) => { 
   const { updateVideo } = useApiService();
 
   const [title, setTitle] = useState(video.title);
