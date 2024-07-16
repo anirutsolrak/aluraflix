@@ -69,7 +69,7 @@ const HomePage = () => {
         <StyledH2>Wild Rift</StyledH2>
         <StyledVideoCardsContainer>
         {videos
-            .filter((video) => video.category === 'frontend')
+            .filter((video) => video.category === 'Wr')
             .map ((video) =>
               (<VideoCard 
                   key={video.id} 
