@@ -44,7 +44,7 @@ const HomePage = () => {
     };
 
     fetchVideos();
-  }, [videos]);
+  }, []);
 
   return (
     <StyledContainer>
