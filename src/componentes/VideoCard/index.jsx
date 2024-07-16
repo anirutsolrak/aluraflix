@@ -40,6 +40,7 @@ const VideoCard = ({ video }) => {
 
   const handleEdit = () => {
     setShowModal(true);
+    EditModal
   };
 
   const handleDelete = async () => {
@@ -83,6 +84,7 @@ const VideoCard = ({ video }) => {
             video={video}
             onClose={() => setShowModal(false)}
             onUpdateVideo={onUpdateVideo}
+            handleEdit={handleEdit}
           />
         )}
       </StyledCardContent>
